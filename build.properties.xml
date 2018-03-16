@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Don't directly modify this file. Instead, edit build.properties.local-->
+<root>
+    <app>
+        <name>LGPN-search</name>
+        <description>Lexicon of Greek personal names - Public search interface for LGPN-data</description>
+        <version>0.1.0</version>
+        <website>http://lgpn.classics.ox.ac.uk/apps/lgpn-search</website>
+        <status>alpha</status>
+        <permissions>rw-rw-r--</permissions>
+        <license>GNU-LGPL</license>
+    </app>
+    <exist>
+        <dir>/usr/local/existdb/exist</dir>
+    </exist>
+    <npm>/usr/local/bin/npm</npm>
+    <gulp>/usr/local/bin/gulp</gulp>
+</root>
