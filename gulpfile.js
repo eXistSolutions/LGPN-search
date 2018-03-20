@@ -24,6 +24,7 @@ var fs =                    require('fs'),
                                 'bower_components/bootstrap/dist/js/bootstrap.min.js'
                              ],
         'xml':               'resources/xml/*.xml',
+        'modules':           'modules/**/*',
         'images':            'resources/img/**/*',
         'fonts':             'bower_components/bootstrap/fonts/**/*'
     },
@@ -35,6 +36,7 @@ var fs =                    require('fs'),
         'scripts':           'resources/js',
         'vendor_scripts':    'resources/js/vendor',
         'xml':               'resources/xml',
+        'modules':           'modules',
         'images':            'resources/img',
         'fonts':             'resources/fonts'
     }
@@ -138,6 +140,20 @@ gulp.task('watch:templates', function () {
     gulp.watch(input.templates, ['deploy:templates'])
 });
 
+// *************  Modules *************** //
+
+// Deploy modules
+gulp.task('deploy:modules', function () {
+    return gulp.src(input.modules, {base: './'})
+        .pipe(exClient.newer(targetConfiguration))
+        .pipe(exClient.dest(targetConfiguration))
+});
+
+// Watch modules
+gulp.task('watch:modules', function () {
+    gulp.watch(input.modules, ['deploy:modules'])
+});
+
 
 // *************  HTML Pages *************** //
 
@@ -170,12 +186,12 @@ gulp.task('watch:xml', function () {
 
 
 // Watch and deploy all changed files
-gulp.task('watch', ['watch:html', 'watch:styles', 'watch:scripts', 'watch:xml']);
+gulp.task('watch', ['watch:html', 'watch:styles', 'watch:scripts', 'watch:xml', 'watch:modules']);
 
 gulp.task('build', ['build:styles', 'fonts:copy', 'vendor_scripts:copy']);
 
 // Deploy files to existDB
-gulp.task('deploy', ['build:styles', 'fonts:deploy', 'deploy:scripts', 'deploy:xml'], function () {
+gulp.task('deploy', ['build:styles', 'fonts:deploy', 'deploy:scripts', 'deploy:xml', 'deploy:modules'], function () {
     console.log('deploying files to local existdb');
     return gulp.src([
             'resources/css/style.css',
