@@ -2,7 +2,7 @@
 <!-- Don't directly modify this file. Instead, edit build.properties.local-->
 <root>
     <app>
-        <name>LGPN-search</name>
+        <name>lgpn-search</name>
         <description>Lexicon of Greek personal names - Public search interface for LGPN-data</description>
         <version>0.1.0</version>
         <website>http://lgpn.classics.ox.ac.uk/apps/lgpn-search</website>
