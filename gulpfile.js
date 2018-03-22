@@ -23,6 +23,9 @@ var fs =                    require('fs'),
                                 'bower_components/jquery/dist/jquery.min.js',
                                 'bower_components/bootstrap/dist/js/bootstrap.min.js'
                              ],
+        // 'vendor_css':        [
+        //                         'bower_components/bootstrap/dist/css/bootstrap.min.css'
+        //                      ],
         'xml':               'resources/xml/*.xml',
         'modules':           'modules/**/*',
         'images':            'resources/img/**/*',
@@ -85,7 +88,7 @@ gulp.task('build:styles', function(){
 
 gulp.task('deploy:styles', ['build:styles'], function () {
     console.log('deploying less and css files');
-    return gulp.src('resources/css/**/*', {base: './'})
+    return gulp.src(input.css, {base: './'})
         .pipe(exClient.newer(targetConfiguration))
         .pipe(exClient.dest(targetConfiguration))
 });
@@ -184,24 +187,34 @@ gulp.task('watch:xml', function () {
 
 // *************  General Tasks *************** //
 
+// Build styles and copy fonts
+gulp.task('build-all', ['build:styles', 'fonts:copy', 'vendor_scripts:copy']);
 
-// Watch and deploy all changed files
-gulp.task('watch', ['watch:html', 'watch:styles', 'watch:scripts', 'watch:xml', 'watch:modules']);
+// Build styles and copy fonts
+gulp.task('build', ['build:styles']);
 
-gulp.task('build', ['build:styles', 'fonts:copy', 'vendor_scripts:copy']);
+// Watch files and trigger building styles and deployment to database
+gulp.task('watch', ['build', 'deploy'], function () {
+    gulp.watch(pathsToWatchAndDeploy, ['deploy'])
+});
 
 // Deploy files to existDB
-gulp.task('deploy', ['build:styles', 'fonts:deploy', 'deploy:scripts', 'deploy:xml', 'deploy:modules'], function () {
-    console.log('deploying files to local existdb');
-    return gulp.src([
-            'resources/css/style.css',
-            'templates/**/*.html',
-            '*.html',
-            '*.xhtml'
-        ], {base: './'})
+var pathsToWatchAndDeploy = [
+    'templates/**/*.html',
+    'resources/**/*',
+    'transform/*',
+    '*.html',
+    '*{.xpr,.xqr,.xql,.xml,.xconf}',
+    'modules/**/*',
+    'transform/*',
+    '!build.*'
+];
+
+gulp.task('deploy', ['build'], function () {
+    return gulp.src(pathsToWatchAndDeploy, {base: './'})
         .pipe(exClient.newer(targetConfiguration))
         .pipe(exClient.dest(targetConfiguration))
 });
 
 // Default task (which is called by 'npm start' task)
-gulp.task('default', ['build']);
+gulp.task('default', ['build-all']);
