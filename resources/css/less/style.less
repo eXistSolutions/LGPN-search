@@ -3,16 +3,21 @@
 
 // Core --------------------------- //
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400|Oswald');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&subset=greek');
+//@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400|Roboto');
+
+@import "_custom-theme.less";
 //@import "_default-variables.less";
-@import "_base.less";
+@import "_custom-base.less";
 @import "_utilities.less";
-@import "_tp-grid.less";
+@import "_custom-grid.less";
+//@import "_tp-grid.less";
 
 // Elements ----------------------- //
 
-@import "_typography.less";
-@import "_buttons.less";
+@import "_custom-typography.less";
+@import "_custom-buttons.less";
+//@import "_buttons.less";
 
 // Components --------------------- //
 
@@ -42,33 +47,49 @@
 
 /********************* Colors ************************/
 
-@color-primary:                   #35424b;
-@color-primary-light:             #607D8B;
-@color-primary-lightest:          #d1dae0;
+@colorPrimary:                    rgba(38, 50, 56, 100);
+@colorLightPrimary:               lighten(rgba(38, 50, 56, 100), 25%);
+@colorSecondary:                  rgba(120, 144, 156, 100);
+@colorTertiary:                   rgba(236, 239, 241, 100);
+@colorIconBlueGrey:               #CFD8DC;
+@colorGraduateNavyBlue:           #44687d;
+@colorVeryLightBlue:              #f0f5f8;
+@color-gray-lightest:             rgba(239, 239, 239, 100);
+@colorLightGreen:                 rgba(220, 237, 200, 100);
+@colorGreen:                      #689F38;
+@colorOrange:                     #cf7a30;
+@colorRed:                        #be0f34;
+@color-primary-light:             @colorIconBlueGrey;
+@color-primary-lightest:          @colorSecondary;
 
-@color-secondary:                 #f6a623;
+@color-primary:                   @colorPrimary;
+@color-secondary:                 @colorSecondary;
 @color-secondary-darker:          #d6911f;
 
 @color-white:                     #ffffff;
-@color-gray-lightest:             #f1f1f1;
-@color-gray-lighter:              #d6d7d9;
+@color-gray-lighter:              @colorSecondary;
 @color-gray-light:                #777777;
 @color-gray-medium:               rgba(153, 153, 153, 0.2);
 @color-gray-dark:                 #323a45;
 
 // Body
-@color-body-bg:                   @color-white;
-@color-body-text-default:         #333333;
+@color-body-bg:                   @color-gray-lightest;
+@color-body-text-default:         @text-color;
+@color-body-highlight:            @colorTertiary;
+@text-color:                      #3d3b3b;
+@text-color-light:                #D0CDCD;
+@text-color-contrast:             @color-white;
 
 // Links
-@color-link:                      #303F9F;
+@color-link:                      rgba(2, 119, 189, 100);
 @color-link-hover:                #1b2257;
+@link-hover-color:                @color-link-hover;
 @color-link-hover-bg:             @color-gray-medium;
 
 // Navigation
 @color-navigation-bg:             @color-primary;
 @color-navigation-text:           @color-white;
-@color-navigation-hover:          @color-primary-light;
+@color-navigation-hover:          lighten(@colorPrimary, 15%);
 
 // Toolbar-Color
 @color-toolbar-bg:                @color-primary-lightest;
@@ -86,8 +107,8 @@
 
 // Buttons
 @btn-primary-color:               @color-white;
-@btn-primary-bg:                  @color-primary-light;
-@btn-primary-border:              @color-primary-light;
+@btn-primary-bg:                  @colorGreen;
+@btn-primary-border:              @colorGreen;
 
 // Borders
 @default-border-style:            1px solid @color-gray-lighter;
@@ -95,12 +116,21 @@
 // Special state colors
 @color-disabled:                  @color-gray-lighter;
 
+// Mixin to darken/lighten colors
+.lighten-color(@color) {
+  //color: lighten(@color, 15%);
+  background-color: lighten(@color, 15%);
+}
+
+.darken-color(@color) {
+  color: darken(@color, 15%);
+}
 
 /********************* Fonts ************************/
 
 @font-serif:                      "Junicode", Georgia, "Times New Roman", serif;
-@font-sans-serif:                 "Oswald", Verdana, "Helvetica", sans-serif;
 @font-sans-serif-default:         "Open Sans", Verdana, "Helvetica", sans-serif;
+@font-sans-serif:                 "Roboto", Verdana, "Helvetica", sans-serif;
 @font-monospace:                  "Ubuntu Mono", Menlo, Consolas, Courier, monospace;
 
 // Body
@@ -132,7 +162,13 @@
 @screen-xlarge:                   1441px;
 @screen-xxlarge:                  1601px;
 
+// Custom breakpoint names
+@small-screen-min:                @screen-xs;
+@medium-screen-min:               @screen-sm-min;
+@large-screen-min:                @screen-lg-min;
+
 /*********************** Grid *************************/
+
 @container-md:                    @screen-md;
 
 /*********** Variables for inner documents ************/
@@ -158,6 +194,7 @@
 @margin-vertical-base:            .53em;
 @margin-horizontal-base:          1.5rem;
 @padding-horizontal-base:         1.5rem;
+@padding-vertical-base:           1.5rem;
 @padding-large-horizontal:        1.6rem;
 @padding-large-vertical:          1.0rem;
 
@@ -205,6 +242,12 @@
 
 @footer-height:                       35px;
 @color-footer-bg:                     @color-gray-lightest;
+
+
+// Custom variables
+@column-max-width-default:            100%;
+@column-max-width-responsive:          80%;
+@column-max-width-fixed:            150rem;
 
 /********************* Styles for the Content ************************/
 /* All content styling should go here.                               */
