@@ -15,33 +15,41 @@ var fs =                    require('fs'),
 
 
     input = {
-        'html':             ['*.html', '*.xhtml'],
-        'templates':         'templates/**/*.html',
-        'css':               'resources/css/less/style.less',
-        'scripts':           'resources/js/**/*',
-        'vendor_scripts':    [
-                                'bower_components/jquery/dist/jquery.min.js',
-                                'bower_components/bootstrap/dist/js/bootstrap.min.js'
-                             ],
-        // 'vendor_css':        [
-        //                         'bower_components/bootstrap/dist/css/bootstrap.min.css'
-        //                      ],
-        'xml':               'resources/xml/*.xml',
-        'modules':           'modules/**/*',
-        'images':            'resources/img/**/*',
-        'fonts':             'bower_components/bootstrap/fonts/**/*'
+        'html':                 ['*.html', '*.xhtml'],
+        'templates':            'templates/**/*.html',
+        'css':                  'resources/css/less/style.less',
+        'vendor_css':           [
+                                    'node_modules/bootstrap/dist/css/bootstrap.min.css' // v3.3.7
+                                    ,'node_modules/jasny-bootstrap/dist/css/jasny-bootstrap.min.css'
+                                    ,'node_modules/bootstrap-material-design/dist/css/bootstrap-material-design.min.css' // v0.5.10
+                                    ,'/node_modules/bootstrap-material-design/dist/css/ripples.min.css' // v0.5.10
+                                ],
+        'scripts':              'resources/scripts/**/*',
+        'vendor_js':            [
+                                    'node_modules/jquery/dist/jquery.min.js' // v3.2.1
+                                    ,'node_modules/bootstrap/dist/js/bootstrap.min.js' // v.3.3.7
+                                    ,'node_modules/jasny-bootstrap/dist/js/jasny-bootstrap.min.js'
+                                    ,'resources/scripts/vendor/jquery.ui.widget.js'
+                                    ,'node_modules/bootstrap-material-design/dist/js/material.min.js' // v0.5.10
+                                    ,'node_modules/bootstrap-material-design/dist/js/ripples.min.js' // v0.5.10
+                                    ,'resources/scripts/vendor/bootstrap3-typeahead.min.js'
+        ],
+        'xml':                  'resources/xml/*.xml',
+        'modules':              'modules/**/*',
+        'images':               'resources/img/**/*',
+        'fonts':                'bower_components/bootstrap/fonts/**/*'
     },
     output  = {
-        'html':              '.',
-        'templates':         'templates',
-        'css':               'resources/css',
-        'vendor_css':        'resources/css',
-        'scripts':           'resources/js',
-        'vendor_scripts':    'resources/js/vendor',
-        'xml':               'resources/xml',
-        'modules':           'modules',
-        'images':            'resources/img',
-        'fonts':             'resources/fonts'
+        'html':                 '.',
+        'templates':            'templates',
+        'css':                  'resources/css',
+        'vendor_css':           'resources/css/vendor',
+        'scripts':              'resources/scripts',
+        'vendor_js':            'resources/scripts/vendor',
+        'xml':                  'resources/xml',
+        'modules':              'modules',
+        'images':               'resources/img',
+        'fonts':                'resources/fonts'
     }
     ;
 
@@ -93,6 +101,11 @@ gulp.task('deploy:styles', ['build:styles'], function () {
         .pipe(exClient.dest(targetConfiguration))
 });
 
+gulp.task('vendor_css:copy', function () {
+    return gulp.src(input.vendor_css)
+        .pipe(gulp.dest(output.vendor_css));
+});
+
 gulp.task('watch:styles', function () {
     console.log('watching less files');
     gulp.watch('resources/css/less/**/*.less', ['deploy:styles'])
@@ -113,12 +126,12 @@ gulp.task('fonts:deploy', ['fonts:copy'], function () {
 
 // ****************  Scripts ****************** //
 
-gulp.task('vendor_scripts:copy', function () {
-    return gulp.src(input.vendor_scripts)
-        .pipe(gulp.dest(output.vendor_scripts));
+gulp.task('vendor_js:copy', function () {
+    return gulp.src(input.vendor_js)
+        .pipe(gulp.dest(output.vendor_js));
 });
 
-gulp.task('deploy:scripts', ['vendor_scripts:copy'], function () {
+gulp.task('deploy:scripts', ['vendor_js:copy'], function () {
     return gulp.src(input.scripts, {base: '.'})
         .pipe(exClient.newer(targetConfiguration))
         .pipe(exClient.dest(targetConfiguration))
@@ -188,7 +201,7 @@ gulp.task('watch:xml', function () {
 // *************  General Tasks *************** //
 
 // Build styles and copy fonts
-gulp.task('build-all', ['build:styles', 'fonts:copy', 'vendor_scripts:copy']);
+gulp.task('build-all', ['build:styles', 'fonts:copy', 'vendor_js:copy', 'vendor_css:copy']);
 
 // Build styles and copy fonts
 gulp.task('build', ['build:styles']);
@@ -210,7 +223,7 @@ var pathsToWatchAndDeploy = [
     '!build.*'
 ];
 
-gulp.task('deploy', ['build'], function () {
+gulp.task('deploy', ['build-all'], function () {
     return gulp.src(pathsToWatchAndDeploy, {base: './'})
         .pipe(exClient.newer(targetConfiguration))
         .pipe(exClient.dest(targetConfiguration))
