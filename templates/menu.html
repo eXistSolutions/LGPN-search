@@ -9,7 +9,7 @@
                 <span class="icon-bar"/>
             </button>
             <a class="navbar-brand" href="$app/index.html">
-                <span data-template="config:app-title">App Title</span>
+                <span data-template="config:app-title">LGPN Search</span>
             </a>
         </div>
         <div class="navbar-collapse collapse" id="navbar-collapse-1">
@@ -19,7 +19,22 @@
                         <div>
                             <i18n:text key="home"/>
                         </div>
-                        <!--<i class="material-icons">home</i>-->
+                    </a>
+                </li>
+                <li>
+                    <a href="$app/index.html" class="tp-menu-item" title="i18n(home)">
+                        <div>
+                            Catalogues
+                            <!--<i18n:text key="home"/>-->
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="$app/index.html" class="tp-menu-item" title="i18n(home)">
+                        <div>
+                            Help
+                            <!--<i18n:text key="home"/>-->
+                        </div>
                     </a>
                 </li>
                 <li class="dropdown" data-template="browse:show-for-document">
@@ -73,11 +88,9 @@
                 <li class="dropdown" data-template="browse:show-if-logged-in">
                     <a href="#" class="dropdown-toggle tp-menu-item" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false" title="i18n(admin)">
                         <div>
-                            <!--<i class="material-icons md-dark">build</i>-->
                             <i18n:text key="admin"/>
                             <span class="caret"/>
                         </div>
-                        <!--<i class="material-icons">create</i>-->
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                         <li>
