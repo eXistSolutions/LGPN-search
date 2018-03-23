@@ -79,6 +79,9 @@
 article.landing {
   &:extend(.tp-column-3);
   margin-bottom: 4rem;
+  &:first-of-type {
+    padding-left: 0;
+  }
 }
 
 // "More" Links
@@ -90,4 +93,10 @@ article.landing {
   &:active {
     color: @color-link-hover;
   }
+}
+
+// Text under subheadline
+.subheadline-p {
+  &:extend(.h6);
+  font-family: @font-family-body-default !important;
 }
