@@ -223,7 +223,7 @@ var pathsToWatchAndDeploy = [
     '!build.*'
 ];
 
-gulp.task('deploy', ['build-all'], function () {
+gulp.task('deploy', ['build'], function () {
     return gulp.src(pathsToWatchAndDeploy, {base: './'})
         .pipe(exClient.newer(targetConfiguration))
         .pipe(exClient.dest(targetConfiguration))
