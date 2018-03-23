@@ -32,6 +32,7 @@
     border-radius: 4px;
     transition: border-color ease-in-out 0.15s,box-shadow ease-in-out 0.15s;
   }
+
   .search-button {
     position: absolute;
     top: 0;
@@ -40,8 +41,18 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     width: auto;
-    //height: 100%;
     margin-top: 0;
+  }
+
+  .lgpn-link-button {
+    padding: 7px 12px;
+    @media (min-width: @screen-sm-min) {
+      display:block;
+      padding: 7px 30px;
+    }
+    span {
+
+    }
   }
 }
 
