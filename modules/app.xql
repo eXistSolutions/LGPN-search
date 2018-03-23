@@ -10,6 +10,8 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 declare
     %templates:wrap
-function app:foo($node as node(), $model as map(*)) {
-    <p>Dummy templating function.</p>
+function app:current-year($node as node(), $model as map(*)) {
+    let $year := year-from-date(current-date())
+    return
+        $year
 };

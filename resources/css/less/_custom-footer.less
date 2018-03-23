@@ -1,0 +1,41 @@
+// main: style.less
+
+/********************* Footer Styles *********************************/
+
+// Footer
+footer {
+  color: @color-text-contrast;
+  background-color: @footer-bg-color;
+  position: relative;
+
+  @media only screen and (min-width: @small-screen-min) {
+    padding: 2rem 0 2rem;
+  }
+
+  .tp-row:not(:last-of-type) {
+    margin-bottom: 3rem;
+  }
+
+  .footer-headline {
+    &:extend(.tp-column-fullwidth);
+    margin: 0 0 1em;
+  }
+  a {
+    text-decoration: none;
+    color: @text-color-light;
+    &:active,
+    &:hover {
+      text-decoration: underline;
+      color: @text-color-light;
+    }
+  }
+}
+
+.footer-column {
+  &:extend(.tp-column-3);
+  p {
+    margin: 1rem 0;
+  }
+}
+
+
