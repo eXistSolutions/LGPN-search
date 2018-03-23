@@ -8,7 +8,7 @@ You need to have *ant*, *git* and *nodeJS* installed.
 
 After node is installed just run
 
-    npm install -g gulp bower
+    npm install -g gulp
     
 ## Setup
 
