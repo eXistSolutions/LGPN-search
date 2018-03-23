@@ -46,12 +46,22 @@
 
   .lgpn-link-button {
     padding: 7px 12px;
-    @media (min-width: @screen-sm-min) {
-      display:block;
-      padding: 7px 30px;
+    i {
+      display: inline;
+      padding-right: 0;
     }
     span {
-
+      display: none;
+    }
+    @media (min-width: @screen-md-min) {
+      display:block;
+      padding: 7px 30px;
+      i {
+        display: none;
+      }
+      span {
+        display: inline;
+      }
     }
   }
 }
