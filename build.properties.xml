@@ -4,7 +4,7 @@
     <app>
         <name>lgpn-search</name>
         <description>Lexicon of Greek personal names - Public search interface for LGPN-data</description>
-        <version>0.1.1</version>
+        <version>0.2.0</version>
         <website>http://lgpn.classics.ox.ac.uk/apps/lgpn-search</website>
         <status>alpha</status>
         <permissions>rw-rw-r--</permissions>
